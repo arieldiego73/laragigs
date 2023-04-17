@@ -48,6 +48,8 @@ class ListingController extends Controller
             $validated['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
+        $validated['user_id'] = auth()->id();
+
         Listing::create($validated);
         return redirect('/')->with('message', 'A gig is created succesfully!');
     }
