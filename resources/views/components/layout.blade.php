@@ -13,7 +13,8 @@
     {{-- GOOGLE FONT --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     {{-- ALPINE --}}
     <script src="//unpkg.com/alpinejs" defer></script>
@@ -27,6 +28,9 @@
                     colors: {
                         laravel: "#ef3b2d",
                     },
+                },
+                container: {
+                    center: true,
                 },
             },
         };
@@ -45,18 +49,36 @@
     <nav class="flex justify-between items-center mb-4">
         <a href="/"><img class="w-24" src="{{ asset('images/logo.png') }}" alt="" class="logo" /></a>
         <ul class="flex space-x-6 mr-6 text-lg">
-            <li>
-                <a href="register.html" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Register</a>
-            </li>
-            <li>
-                <a href="login.html" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i>
-                    Login</a>
-            </li>
+            @auth
+                <li>
+                    <span class="font-bold uppercase">
+                        Welcome, {{ auth()->user()->name }}!
+                    </span>
+                </li>
+                <li>
+                    <a href="/listings/manage" class="hover:text-laravel"><i class="fa-solid fa-gear fa-fw"></i>
+                        Manage Listings</a>
+                </li>
+                <li>
+                    <form action="/logout" method="POST">
+                        {{ csrf_field() }}
+                        <button type="submit" class=""><i class="fa-solid fa-door-closed fa-fw"></i> Logout</button>
+                    </form>
+                </li>
+            @else
+                <li>
+                    <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Register</a>
+                </li>
+                <li>
+                    <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        Login</a>
+                </li>
+            @endauth
         </ul>
     </nav>
 
     <main>
-        {{$slot}}
+        {{ $slot }}
     </main>
 
     <footer
