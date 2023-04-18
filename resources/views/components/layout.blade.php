@@ -10,6 +10,9 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    {{-- ANIMATE CSS --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     {{-- GOOGLE FONT --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +24,10 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/107ab030c1.js" crossorigin="anonymous" defer></script>
+
+    {{-- JQUERY --}}
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -48,21 +55,26 @@
     <x-flash-message />
     <nav class="flex justify-between items-center mb-4">
         <a href="/"><img class="w-24" src="{{ asset('images/logo.png') }}" alt="" class="logo" /></a>
-        <ul class="flex space-x-6 mr-6 text-lg">
+        <ul class="flex space-x-6 mr-6 text-lg justify-center items-center">
             @auth
-                <li>
-                    <span class="font-bold uppercase">
-                        Welcome, {{ auth()->user()->name }}!
-                    </span>
-                </li>
                 <li>
                     <a href="/listings/manage" class="hover:text-laravel"><i class="fa-solid fa-gear fa-fw"></i>
                         Manage Listings</a>
                 </li>
                 <li>
+                    <span>|</span>
+                </li>
+                <li>
+                    <span class="font-bold uppercase">
+                        <i class="fa-solid fa-user fa-fw"></i>
+                        {{ auth()->user()->name }}
+                    </span>
+                </li>
+                <li>
                     <form action="/logout" method="POST">
                         {{ csrf_field() }}
-                        <button type="submit" class=""><i class="fa-solid fa-door-closed fa-fw"></i> Logout</button>
+                        <button type="submit" class="text-white rounded-lg bg-red-500 hover:bg-red-300 py-1 px-3"><i
+                                class="fa-solid fa-right-from-bracket fa-fw"></i> Logout</button>
                     </form>
                 </li>
             @else
@@ -87,6 +99,7 @@
 
         <a href="/listings/create" class="absolute top-1/3 right-10 bg-black text-white py-2 px-5">Post Job</a>
     </footer>
+    
 </body>
 
 </html>

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(ListingController::class)->group(function () {
     Route::get('/', 'index'); // All listing
     Route::get('/listing/{listing}', 'show'); // Single listing
+    Route::get('/listings/manage', 'manage')->middleware('auth'); // Manage listings
     Route::get('/listings/create', 'create')->middleware('auth'); // Show create form
     Route::post('/listings', 'store')->middleware('auth'); // Create a listing
     Route::get('/listings/{listing}/edit', 'edit')->middleware('auth'); // Show edit form

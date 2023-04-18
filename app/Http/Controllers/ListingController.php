@@ -56,6 +56,10 @@ class ListingController extends Controller
 
     // Update a listing
     public function update(Request $request, Listing $listing) {
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'Unathorized Action');
+        }
+
         $validated = $request->validate([
             'title' => 'required',
             'company' => 'required',
@@ -76,7 +80,17 @@ class ListingController extends Controller
 
     // Delete a listing
     public function destroy(Listing $listing) {
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'Unathorized Action');
+        }
+
         $listing->delete();
-        return redirect('/')->with('message', 'A gig is deleted succesfully!');
+        return back()->with('message', 'A gig is deleted succesfully!');
+    }
+
+    // Manage listings
+    public function manage() {
+        return view('listings.manage')
+            ->with('listings', auth()->user()->listings()->get());
     }
 }

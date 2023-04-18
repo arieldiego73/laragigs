@@ -22,7 +22,8 @@
                 <label for="password" class="inline-block text-lg mb-2">
                     Password
                 </label>
-                <input type="password" class="border border-gray-200 rounded p-2 w-full" name="password" />
+                <input id="password" type="password" class="border border-gray-200 rounded p-2 w-full" name="password" />
+                <input id="checkbox" type="checkbox" id="checkbox"> Show Password
             </div>
 
             <div class="mb-6">
@@ -40,3 +41,11 @@
         </form>
     </x-card>
 </x-layout>
+
+<script>
+    $(document).ready(function(){
+        $('#checkbox').on('change', () => {
+            $('#password').attr('type', $('#checkbox').prop('checked') ? "text" : "password"); 
+        });
+    });
+</script>
